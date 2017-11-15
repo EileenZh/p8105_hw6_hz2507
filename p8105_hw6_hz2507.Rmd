@@ -22,11 +22,6 @@ nynoaa=read_csv("./data/nynoaadat.zip",col_types = "cDiiidd") %>%
   clean_names()%>%
   separate(date, into = c("year", "month", "day"))
 ```
-##Dataset
-```{r}
-nynoaa=read_csv("./data/nynoaadat.zip",col_types = "cDiiidd") %>%
-  separate(date, into = c("year", "month", "day"))
-```
 ##Plotly scattarplot
 ```{r}
 nynoaa%>%
