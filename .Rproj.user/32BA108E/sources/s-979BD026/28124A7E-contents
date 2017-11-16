@@ -22,14 +22,8 @@ nynoaa=read_csv("./data/nynoaadat.zip",col_types = "cDiiidd") %>%
   clean_names()%>%
   separate(date, into = c("year", "month", "day"))
 ```
-##Plotly scattarplot
-```{r}
-nynoaa%>%
-  mutate(hover_text=str_c( "Year : ", year, '\nMonth:', month)) %>%
-  filter(snow < 100, snow > 0, year>2000) %>%
-  plot_ly(x = ~ tmax, y = ~ tmin, type = "scatter", mode = "marker",color = ~snow,
-          text = ~ hover_text, alpha = 0.5)
-```
+
+  
 
 
 
