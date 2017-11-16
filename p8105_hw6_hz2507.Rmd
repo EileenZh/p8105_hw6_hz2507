@@ -1,28 +1,43 @@
 ---
-title: "homework 6"
-author: "Huilin Zhou"
-date: "November 15, 2017"
-output: html_document
+title: "p8105_hw6"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-```{r}
+library(flexdashboard)
 library(tidyverse)
 library(janitor)
 library(stringr)
 library(forcats)
 library(viridis)
 library(plotly)
-```
-##Load the dataset and tidy up
-```{r}
+
 nynoaa=read_csv("./data/nynoaadat.zip",col_types = "cDiiidd") %>%
   clean_names()%>%
   separate(date, into = c("year", "month", "day"))
 ```
-##Plotly boxplot
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r}
+nynoaa%>%
+  mutate(tmin = tmin/10, tmax = tmax/10) %>%
+  mutate(hover_text=paste("tmax: ", tmax, 'tmin: ', tmin, "Snow: ", snow, sep = "<br>")) %>%
+  filter(snow < 100, snow > 0, year>2000) %>%
+  plot_ly(x = ~ tmax, y = ~ tmin, hoverinfo = "hover_text", type = "histogram2d", color = ~snow)
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
 ```{r}
 nynoaa%>%
   mutate(snwd = as.numeric(snwd),year = as.character(year))%>%
@@ -30,7 +45,11 @@ nynoaa%>%
   plot_ly(x = ~ year, y = ~snow, color = ~ year, type = "box",  colors = "Set2")
 ```
 
-  
+### Chart C
+
+```{r}
+
+```
 
 
 
