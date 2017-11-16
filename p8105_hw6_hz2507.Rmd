@@ -14,6 +14,10 @@ library(stringr)
 library(forcats)
 library(viridis)
 library(plotly)
+
+nynoaa=read_csv("./data/nynoaadat.zip",col_types = "cDiiidd") %>%
+  clean_names()%>%
+  separate(date, into = c("year", "month", "day"))
 ```
 
 Column {data-width=650}
@@ -22,13 +26,6 @@ Column {data-width=650}
 ### Chart A
 
 ```{r}
-nynoaa=read_csv("./data/nynoaadat.zip",col_types = "cDiiidd") %>%
-  clean_names()%>%
-  separate(date, into = c("year", "month", "day"))
-
-nynoaa=read_csv("./data/nynoaadat.zip",col_types = "cDiiidd") %>%
-  separate(date, into = c("year", "month", "day"))
-
 nynoaa%>%
   mutate(tmin = tmin/10, tmax = tmax/10) %>%
   mutate(hover_text=paste("tmax: ", tmax, 'tmin: ', tmin, "Snow: ", snow, sep = "<br>")) %>%
